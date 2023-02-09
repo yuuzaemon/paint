@@ -1,0 +1,28 @@
+<body>
+  <canvas id="canvas" width="500" height="300" style="border: solid 1px #000;box-sizing: border-box;"></canvas>
+  <a id="download" href="#" download="canvas.jpg">ダウンロード</a>
+  <div id="result"><img src=""></div>
+  
+  <script>
+    // canvas
+    var cnvs = document.getElementById('canvas');
+    var ctx = cnvs.getContext('2d');
+    
+    // canvasの背景色を設定(指定がない場合にjpeg保存すると背景が黒になる)
+    setBgColor();
+    
+     // canvasを画像で保存
+    $("#download").click(function(){
+      canvas = document.getElementById('canvas');
+      var base64 = canvas.toDataURL("image/jpeg");
+      document.getElementById("download").href = base64;
+    });
+ 
+    function setBgColor(){
+      // canvasの背景色を設定(指定がない場合にjpeg保存すると背景が黒になる)
+      ctx.fillStyle = bgColor;
+      ctx.fillRect(0,0,cnvWidth,cnvHeight);
+    }
+    
+  </script>
+</body>
