@@ -1,11 +1,51 @@
-<canvas id="canvas" width="500" height="300" style="border: solid 1px #000;box-sizing: border-box;"></canvas>
-  
-  <input type="button" value="clear" id="clear">
+  <style>
+  canvas, video{
+    border: 1px solid gray;
+  }
+  </style>
+
+　<video id="camera" width="480" height="270"></video>
+　<canvas id="canvas" width="1920" height="1080"></canvas>
+　<form>
+  　<button type="button" id="shutter">シャッター</button>
+  </form>
+  <br>
   <a id="download" href="#" download="canvas.jpg">ダウンロード</a>
   <div id="result"><img src=""></div>
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 
 <script>
+  window.onload = () => {
+  const video  = document.querySelector("#camera");
+  const canvas = document.querySelector("#canvas");
+  
+  /** カメラ設定 */
+  const constraints = {
+    audio: false,
+    video: {
+      width: 1920,
+      height: 1080,
+      facingMode: { exact: "environment" }  // リアカメラを利用する場合
+    }
+  };
+
+  /**カメラを<video>と同期*/
+  navigator.mediaDevices.getUserMedia(constraints)
+  .then( (stream) => {
+    video.srcObject = stream;
+    video.onloadedmetadata = (e) => {
+      video.play();
+    };
+  })
+  .catch( (err) => {
+    console.log(err.name + ": " + err.message);
+  });
+
+  /**シャッターボタン*/
+   document.querySelector("#shutter").addEventListener("click", () => {
+    const ctx = canvas.getContext("2d");
+  
+};
   // canvas
     var cnvs = document.getElementById('canvas');
     var ctx = cnvs.getContext('2d');
